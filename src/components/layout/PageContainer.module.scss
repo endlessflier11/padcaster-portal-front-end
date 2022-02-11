@@ -1,0 +1,16 @@
+@import "../../styles/shared.scss";
+
+.pageContainer {
+  max-width: 1400px;
+  margin: auto;
+
+  @include small {
+    width: 100%;
+  }
+  @include medium {
+    width: 100%;
+  }
+  @include large {
+    width: 100%;
+  }
+}

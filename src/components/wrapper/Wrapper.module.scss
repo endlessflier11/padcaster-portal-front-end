@@ -1,0 +1,25 @@
+@import "../../styles/shared.scss";
+
+.container {
+  width: 100vw;
+  height: auto;
+}
+
+.scrollContainer {
+  padding-top: $headerHeight;
+  margin-left: 0;
+  width: 100%;
+  background: $colorWhite;
+
+  @include desktop {
+    margin-left: $sidebarWidth;
+    width: calc(100% - $sidebarWidth);
+  }
+
+  @include medium {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  transition: all $easeDuration $ease;
+}

@@ -1,0 +1,14 @@
+@import "../../styles/shared.scss";
+
+.container {
+  position: absolute;
+  left: 0.6rem;
+  top: 0.6rem;
+  width: 24px;
+  height: auto;
+  padding-left: 0px;
+}
+
+.path {
+  fill: $colorSecondary;
+}

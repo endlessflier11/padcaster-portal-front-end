@@ -1,0 +1,50 @@
+@import "../../styles/shared.scss";
+
+.icon {
+  width: 23pt;
+  margin-left: $pageMargin;
+  &SignOut {
+    width: auto;
+  }
+}
+
+.menu {
+  background-color: $colorPrimary;
+  letter-spacing: 0.55pt;
+  font-size: 10pt;
+  line-height: 14pt;
+  cursor: pointer;
+  transition: all $easeDuration $ease;
+}
+
+.text {
+  color: $colorWhite;
+}
+
+.container {
+  height: 40pt;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  transition: all 0.3 $ease;
+
+  &Active {
+    background: rgba(0, 0, 0, 0.1);
+
+    .highlight {
+      position: absolute;
+      background-color: $colorAction;
+      width: 2px;
+      height: 40pt;
+    }
+
+    .menu {
+      background-color: rgba($colorPrimary, 0.1);
+      color: $colorAction;
+    }
+
+    .text {
+      color: $colorAction;
+    }
+  }
+}

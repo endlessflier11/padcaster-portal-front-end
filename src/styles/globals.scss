@@ -1,0 +1,226 @@
+@import "./shared.scss";
+
+// Fonts
+@font-face {
+  font-family: "Montserrat-Regular";
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: url("/fonts/Montserrat-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Montserrat-Bold";
+  font-style: normal;
+  font-weight: bold;
+  font-display: swap;
+  src: url("/fonts/Montserrat-Bold.woff2") format("woff2");
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  background-color: $colorWhite;
+  min-width: 375px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a,
+button,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+option,
+p,
+select,
+small,
+textarea,
+div {
+  font-family: Montserrat, Inter, -apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
+  font-weight: normal;
+  color: $colorPrimary;
+  letter-spacing: 0;
+  font-size: 12pt;
+  line-height: 15pt;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  font-weight: bold;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+button,
+h1,
+h2 {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 16pt;
+  line-height: 20pt;
+}
+
+h2.inactive {
+  color: $colorSecondary;
+}
+
+small {
+  font-size: 10pt;
+  line-height: 13pt;
+}
+
+button {
+  text-align: center;
+  color: $colorWhite;
+  background-color: $colorAction;
+  padding: 10pt 13pt 10pt 13pt;
+  border: none;
+  cursor: pointer;
+}
+
+button.simple,
+button.text {
+  color: $colorAction;
+  background-color: $colorWhite;
+}
+
+button.secondary {
+  color: $colorSecondary;
+  background-color: $colorWhite;
+}
+
+button.large,
+button.largeSecondary {
+  border-radius: 6px;
+  height: 50pt;
+  width: 100%;
+  max-width: 355px;
+  min-width: 200px;
+}
+
+button.small,
+button.smallSecondary {
+  border-radius: 6px;
+  height: 40pt;
+}
+
+button.largeSecondary,
+button.smallSecondary {
+  color: $colorPrimary;
+  background-color: $colorWhite;
+  border-style: solid;
+  border-width: 1pt;
+  border-color: $colorGreyMedium;
+}
+
+button.text {
+  font-size: 10pt;
+  padding: 0;
+}
+
+button.text {
+  font-size: 10pt;
+  padding: 0;
+
+  &:hover {
+    color: $colorActionHover;
+  }
+}
+
+input,
+select {
+  border-style: solid;
+  border-width: 1pt;
+  border-color: $colorGreyMedium;
+  padding: 10pt 13pt 10pt 13pt;
+}
+
+input[type="checkbox"] {
+  width: 17pt;
+  height: 17pt;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: relative;
+  padding: 0;
+  margin: 16px;
+  border-radius: 3px;
+  &:checked,
+  &:indeterminate {
+    background: $colorAction;
+    font-size: 16px;
+    &::before {
+      position: absolute;
+      top: -1px;
+      left: 3px;
+      color: $colorWhite;
+      -webkit-transform: scale(1.5);
+      transform: scale(1.2);
+    }
+  }
+  &:checked::before {
+    content: "✓";
+  }
+  &:indeterminate::before {
+    content: "\2015";
+    left: 2px;
+  }
+}
+
+select {
+  appearance: none;
+  padding-right: 23pt;
+  background-color: $colorGreyLight;
+}
+
+option {
+  background-color: $colorWhite;
+}
+
+div.selectArrow {
+  position: absolute;
+  right: $pageMargin;
+  top: calc(50% - 4pt);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8pt 5pt 0 5pt;
+  border-color: $colorSecondary transparent transparent transparent;
+  z-index: 1;
+}
+
+// file input styling
+// way of hiding, instead of display: none or visibility: hidden
+// for accessibility https://www.a11yproject.com/posts/2013-01-11-how-to-hide-content/
+[type="file"] {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}

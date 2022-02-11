@@ -1,0 +1,37 @@
+@import "../../styles/shared.scss";
+
+.container {
+  &,
+  &NavOpen {
+    position: fixed;
+    height: $headerHeight;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: $colorWhite;
+    box-sizing: border-box;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+
+    margin-left: 0;
+    width: 100%;
+
+    @include desktop {
+      margin-left: $sidebarWidth;
+      width: calc(100% - $sidebarWidth);
+    }
+
+    @include medium {
+      margin-left: 0;
+      width: 100%;
+    }
+
+    transition: all $easeDuration $ease;
+
+    z-index: 100;
+  }
+
+  &NavOpen {
+    margin-left: $sidebarWidth;
+    width: calc(100% - $sidebarWidth);
+  }
+}

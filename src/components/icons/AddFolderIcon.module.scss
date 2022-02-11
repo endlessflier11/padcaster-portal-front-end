@@ -1,0 +1,8 @@
+@import "../../styles/shared.scss";
+
+.container {
+  height: auto;
+  margin-left: $MediaBrowserToolbarIconsMargin;
+  transform: scale(1.2);
+  margin-top: 3pt;
+}

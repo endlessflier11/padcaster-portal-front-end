@@ -1,0 +1,29 @@
+@mixin small {
+  @media screen and (max-width: 600px) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin large {
+  @media screen and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin gt-large {
+  @media screen and (min-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (hover: hover) {
+    @content;
+  }
+}

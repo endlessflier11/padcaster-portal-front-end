@@ -1,0 +1,99 @@
+@import "../../../styles/shared.scss";
+
+.container {
+  height: $MediaBrowserRowHeight;
+  display: flex;
+  align-items: center;
+  border-bottom: solid 1px $colorGreyLight;
+  background: $colorWhite;
+  position: relative;
+}
+
+.name,
+.dateCreated,
+.size,
+.sharedWith,
+.checkbox {
+  flex: 0 0 auto;
+}
+
+.checkbox {
+  flex-basis: $MediaBrowserCheckboxWidth;
+  top: 3px;
+}
+
+.nameWrapper {
+  flex-basis: $MediaBrowserNameWidth;
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  margin-left: 8px;
+}
+
+.dateCreated {
+  flex-basis: $MediaBrowserDateCreatedWidth;
+}
+.size {
+  flex-basis: $MediaBrowserSizeWidth;
+}
+
+.sharedWith {
+  flex-basis: $MediaBrowserSharedWidth;
+}
+
+.dateCreated,
+.size,
+.sharedWith {
+  @include medium {
+    display: none;
+  }
+}
+
+.actions {
+  &,
+  &Clicked {
+    position: absolute;
+    right: 14px;
+    width: 24px;
+    height: 24px;
+    top: 14px;
+    opacity: 0;
+    background: $colorWhite;
+    padding: 0;
+    &:hover {
+      cursor: pointer;
+      opacity: 1;
+    }
+    @include medium {
+      cursor: pointer;
+      opacity: 1;
+      &::before {
+        content: "|";
+        border-left: 1px solid $colorGreyLight;
+        position: absolute;
+        right: 30px;
+        top: -5px;
+        color: $colorWhite;
+        height: 34px;
+      }
+    }
+  }
+  &Clicked {
+    opacity: 1;
+    background: $colorGreyLight;
+  }
+}
+
+.tooltipButton {
+  color: $colorPrimary;
+  font-size: 12px;
+  line-height: 24px;
+  background: $colorWhite;
+  padding: 0;
+  display: block;
+  font-weight: normal;
+  text-transform: none;
+  cursor: pointer;
+}

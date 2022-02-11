@@ -1,0 +1,73 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "title": "PRODUCTION TUTORIALS",
+      "slug": "production-tutorials",
+      "subcategories": [
+        {
+          "id": 1,
+          "category": 1,
+          "title": "FRAMING, COMPOSITION, & LIGHTING",
+          "slug": "framing-composition-lighting"
+        },
+        {
+          "id": 2,
+          "category": 1,
+          "title": "AUDIO ESSENTIALS",
+          "slug": "audio-essentials"
+        },
+        {
+          "id": 3,
+          "category": 1,
+          "title": "LENSES / OPTICS",
+          "slug": "lenses-optics"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "APP TUTORIALS",
+      "slug": "app-tutorials",
+      "subcategories": [
+        {
+          "id": 4,
+          "category": 2,
+          "title": "PRODUCER APP",
+          "slug": "producer-app"
+        },
+        {
+          "id": 5,
+          "category": 2,
+          "title": "PARROT TELEPROMPTER",
+          "slug": "parrot-teleprompter"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "ASSET MANAGEMENT",
+      "slug": "asset-management",
+      "subcategories": [
+        {
+          "id": 6,
+          "category": 3,
+          "title": "PADCASTER PORTAL ASSET MANAGEMENT",
+          "slug": "padcaster-portal-asset-management"
+        },
+        {
+          "id": 7,
+          "category": 3,
+          "title": "DOWNLOADING ASSETS",
+          "slug": "downloading-assets"
+        },
+        {
+          "id": 8,
+          "category": 3,
+          "title": "STORAGE AND TRANSFER TIPS",
+          "slug": "storage-and-transfer-tips"
+        }
+      ]
+    }
+  ]
+}

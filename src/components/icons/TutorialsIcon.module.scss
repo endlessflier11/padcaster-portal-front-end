@@ -1,0 +1,10 @@
+@use "../../styles/colors";
+
+.container {
+  height: auto;
+  transform: scale(0.8);
+}
+
+.group {
+  fill: colors.$colorAction;
+}

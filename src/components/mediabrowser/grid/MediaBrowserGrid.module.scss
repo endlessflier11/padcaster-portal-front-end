@@ -1,0 +1,10 @@
+@import "../../../styles/shared.scss";
+
+.container {
+  height: auto;
+  margin-top: 37px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, $MediaBrowserGridItemThumbnailWidth);
+  grid-template-rows: repeat(auto-fill, 255px);
+  gap: 19px;
+}

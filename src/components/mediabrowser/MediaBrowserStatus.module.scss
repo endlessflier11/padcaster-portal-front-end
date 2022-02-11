@@ -1,0 +1,31 @@
+@import "../../styles/shared.scss";
+
+.container {
+  height: $MediaBrowserHeaderHeight;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: $MainContentAreaTopMargin;
+  background: $colorLightOrange;
+  padding: 12px;
+  @include medium {
+    height: 50px;
+    margin-top: 0;
+  }
+}
+
+.selectedCount {
+  color: $colorAction;
+  margin-right: 12px;
+}
+
+.selectedCountWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.rightSideButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}

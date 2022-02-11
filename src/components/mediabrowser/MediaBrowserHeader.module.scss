@@ -1,0 +1,49 @@
+@import "../../styles/shared.scss";
+
+.container {
+  height: $MediaBrowserHeaderHeight;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: $MainContentAreaTopMargin;
+  @include medium {
+    height: 50px;
+    padding: 0 14px;
+    margin-top: 0;
+  }
+}
+
+.rightSide {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.uploadIcon {
+  padding: 0;
+  background-color: $colorGreyLight;
+  @include medium {
+    display: none;
+  }
+}
+
+.pipe {
+  margin-left: $MediaBrowserToolbarIconsMargin;
+  width: 1pt;
+  height: 19pt;
+  border: solid 1pt $colorGreyMedium;
+  @include medium {
+    display: none;
+  }
+}
+
+.gridOrListIcon {
+  margin-left: $MediaBrowserToolbarIconsMargin;
+  background-color: $colorGreyLight;
+  padding: 0;
+  margin-top: 4px;
+  cursor: pointer;
+  @include medium {
+    display: none;
+  }
+}

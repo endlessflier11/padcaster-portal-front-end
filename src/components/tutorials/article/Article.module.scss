@@ -1,0 +1,19 @@
+@import '../../../styles/breakpoints.scss';
+
+.container {
+  height: auto;
+  width: 100%;
+  max-width: 50rem;
+  margin: 2rem auto;
+}
+
+.subcategory {
+  margin: 1rem 0;
+}
+.date {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.content {
+  margin: 2rem 0;
+}

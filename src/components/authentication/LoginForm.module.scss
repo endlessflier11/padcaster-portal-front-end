@@ -1,0 +1,28 @@
+@import "../../styles/breakpoints.scss";
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  max-width: 100%;
+  text-align: left;
+
+  .formControl {
+    margin: 1.5rem 0 0 0;
+  }
+
+  .tagline {
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .forgotPassword {
+    text-align: right;
+    margin-bottom: 1rem;
+  }
+
+  .signUp {
+    font-size: 0.9rem;
+    text-align: right;
+  }
+}

@@ -1,0 +1,49 @@
+@import "../../styles/shared.scss";
+
+.container {
+  &Default,
+  &Minimize {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 400px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background: $colorWhite;
+    padding: 25px;
+    box-shadow: 0 2px 4px 0 rgba(186, 186, 186, 0.5),
+      0 2px 4px 0 rgba(142, 142, 142, 0.5);
+    z-index: 1;
+  }
+  &Minimize {
+    height: auto;
+    width: auto;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 12px;
+}
+
+.icons {
+  display: flex;
+}
+
+.minimize,
+.default,
+.close {
+  background-color: white;
+  padding: 0;
+}
+
+.minimize,
+.default,
+.close {
+  margin-left: 16px;
+}

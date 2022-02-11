@@ -1,0 +1,25 @@
+@import "../../styles/shared.scss";
+
+.container {
+  flex: 1 0 auto;
+  background: $colorGray-Upload;
+  border: dashed 2px $colorGray-UploadBorder;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+  min-height: 160px;
+}
+
+.text {
+  width: 160px;
+  text-align: center;
+  color: $colorGray-UploadText;
+  margin-top: 10px;
+}
+
+.label {
+  color: $colorAction;
+  cursor: pointer;
+}

@@ -1,0 +1,70 @@
+@import '../../../styles/breakpoints.scss';
+
+.container {
+  height: auto;
+
+  .preview {
+    display: flex;
+    flex-direction: row;
+
+    @include medium {
+      flex-direction: column;
+    }
+
+    .content {
+      font-weight: 500;
+    }
+  }
+}
+
+
+
+.paddedPreview {
+  padding: 0 1.5rem;
+}
+
+.previewCopy {
+  flex: 1;
+
+  @include medium {
+    padding: 1.5rem 0;
+  }
+}
+
+.thumbnail {
+  width: 240px;
+
+  // min-height: 160px;
+  // position: relative;
+
+  @include large {
+    width: 240px;
+  }
+
+  @include medium {
+    width: 100%;
+  }
+
+  > div {
+    position: unset !important;
+  }
+
+  .thumbnailImage {
+    object-fit: contain;
+    width: 100% !important;
+    position: relative !important;
+    height: unset !important;
+  }
+}
+
+.thumbnailImage {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+}
+
+.title {
+  margin-bottom: 0.5rem;
+  display: block;
+  font-size: 1.1rem;
+}

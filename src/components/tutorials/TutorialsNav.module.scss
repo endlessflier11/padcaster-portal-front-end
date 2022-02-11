@@ -1,0 +1,87 @@
+@import "../../styles/shared.scss";
+@import "../../styles/breakpoints.scss";
+
+.linkContainer {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+
+  @include large {
+    overflow-x: auto;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+  }
+
+  @include gt-large {
+    justify-content: center;
+  }
+}
+
+.link {
+  display: inline-block;
+  margin: 10px 20px 10px 20px;
+
+  h2 {
+    white-space: nowrap;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    @include medium {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.adminMenu {
+  text-align: center;
+}
+.editButton {
+  font-weight: bold;
+}
+
+.lineActive,
+.lineInactive {
+  margin-top: 5px;
+  background-color: $colorWhite;
+  height: 3px;
+  width: 100%;
+  top: 120px;
+  transition: background-color $easeDuration $ease;
+}
+
+.lineActive {
+  background-color: $colorAction;
+}
+
+.navUnderline {
+  margin-top: 5px;
+  background-color: $colorGreyMedium;
+  height: 3px;
+  width: 100%;
+  top: 160px;
+}
+
+.active,
+.inactive {
+  cursor: pointer;
+  transition: all $easeDuration $ease;
+
+  &:hover {
+    color: $colorActionHover;
+  }
+}
+
+.active {
+  color: $colorPrimary;
+}
+
+.inactive {
+  color: $colorSecondary;
+}

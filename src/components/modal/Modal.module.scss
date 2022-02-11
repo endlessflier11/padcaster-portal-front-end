@@ -1,0 +1,17 @@
+.modalFooterActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 32rem;
+  margin-top: 1rem;
+
+  :nth-child(2) {
+    margin-left: 2rem;
+  }
+
+  .modalAction {
+    padding: 0.5rem 3rem;
+    flex: 1;
+  }
+}

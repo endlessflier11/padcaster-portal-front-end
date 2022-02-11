@@ -1,0 +1,147 @@
+{
+  "account": {
+    "files": [
+      "Account",
+      "AccountHeader"
+    ],
+    "settings": {
+      "files": [
+        "AccountSettings",
+        "AccountSettingsProfile"
+      ],
+      "modal": {
+        "files": [
+          "AccountSettingsModalExample"
+        ]
+      }
+    },
+    "subscription": {
+      "files": [
+        "AccountSubscription"
+      ],
+      "plan": {
+        "files": [
+          "AccountSubscriptionPlanGrid",
+          "AccountSubscriptionPlanItem"
+        ]
+      },
+      "team": {
+        "files": [
+          "AccountSubscriptionTeam"
+        ],
+        "header": {
+          "files": [
+            "AccountSubscriptionTeamHeader",
+            "AccountSubscriptionTeamHeaderMemberLink"
+          ]
+        },
+        "member": {
+          "files": [
+            "AccountSubscriptionTeamMemberList",
+            "AccountSubscriptionTeamMemberItem"
+          ],
+          "device": {
+            "files": [
+              "AccountSubscriptionTeamMemberDeviceList",
+              "AccountSubscriptionTeamMemberDeviceItem"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "digitaltoolkit": {
+    "files": [
+      "DigitalToolkit",
+      "DigitalToolkitList",
+      "DigitalToolkitItem"
+    ],
+    "header": {
+      "files": [
+        "DigitalToolkitHeader",
+        "DigitalToolkitHeaderItem"
+      ],
+      "modal": {
+        "files": [
+          "DigitalToolkitHeaderModal"
+        ]
+      }
+    },
+    "article": {
+      "files": [
+        "DigitalToolkitArticle"
+      ],
+      "editor": {
+        "files": [
+          "DigitalToolkitArticleEditor",
+          "DigitalToolkitArticleHeader",
+          "DigitalToolkitArticleForm"
+        ]
+      }
+    }
+  },
+  "header": {
+    "files": [
+      "Header",
+      "HeaderSearch",
+      "HeaderUser",
+      "HeaderSidebarFlyout"
+    ]
+  },
+  "icons": {
+    "files": [
+      "IconExample"
+    ]
+  },
+  "modal": {
+    "files": [
+      "Modal"
+    ]
+  },
+  "sidebar": {
+    "files": [
+      "Sidebar",
+      "SidebarLogo",
+      "SidebarLinks",
+      "SidebarLink"
+    ]
+  },
+  "mediabrowser": {
+    "files": [
+      "MediaBrowser",
+      "MediaBrowserHeader",
+      "MediaBrowserStatus"
+    ],
+    "grid": {
+      "files": [
+        "MediaBrowserGrid",
+        "MediaBrowserGridItem"
+      ]
+    },
+    "list": {
+      "files": [
+        "MediaBrowserList",
+        "MediaBrowserListItem"
+      ]
+    },
+    "modal": {
+      "files": [
+        "MediaBrowserModalExample"
+      ]
+    }
+  },
+  "mediaplayer": {
+    "files": [
+      "MediaPlayerModal",
+      "MediaPlayer"
+    ]
+  },
+  "upload": {
+    "files": [
+      "UploadModal",
+      "UploadFileDrop",
+      "UploadList",
+      "UploadItem"
+    ]
+  }
+}

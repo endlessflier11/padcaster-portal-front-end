@@ -1,0 +1,82 @@
+@import "../../styles/shared.scss";
+
+.container {
+  height: auto;
+  width: 100%;
+}
+.mediumWidth {
+  max-width: 50rem;
+}
+
+.title {
+  margin-bottom: 1rem;
+}
+
+.subcategory {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+}
+
+.subcategoryLinks {
+  display: flex;
+  flex-direction: row;
+
+  @include large {
+    flex-direction: column;
+  }
+}
+
+.preview {
+  @include gt-large {
+    width: 70%;
+  }
+  height: auto;
+}
+.preview.fullWidth {
+  width: 100%;
+}
+
+.side {
+  flex: 30%;
+  height: auto;
+
+  @include large {
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+  @include medium {
+    margin-top: 0;
+  }
+
+  @include gt-large {
+    border-left: 1px solid $colorGreyLight;
+    padding: 0 1.5rem;
+  }
+
+  > a {
+    display: block;
+    width: 100%;
+    padding: 1rem 0;
+    font-weight: bold;
+    font-weight: bold;
+    color: $colorPrimary;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    @include large {
+      border-top: 1px solid $colorGreyLight;
+    }
+  }
+}
+
+.more {
+  text-align: right;
+}

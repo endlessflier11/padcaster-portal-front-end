@@ -1,0 +1,58 @@
+@import "../../../styles/shared.scss";
+
+.container {
+  height: $MediaBrowserRowHeight;
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  border-bottom: solid 1px $colorGreyLight;
+  background: $colorGreyLight;
+  margin-top: 22px;
+  @include medium {
+    margin-top: 0;
+  }
+}
+
+.nameWrapper,
+.dateCreated,
+.size,
+.sharedWith,
+.checkbox {
+  flex: 0 0 auto;
+  color: $colorSecondary;
+  font-size: 10px;
+}
+
+.checkbox {
+  flex-basis: $MediaBrowserCheckboxWidth;
+  top: 3px;
+}
+
+.nameWrapper {
+  flex-basis: $MediaBrowserNameWidth;
+}
+
+.name {
+  color: $colorSecondary;
+  font-size: 10px;
+}
+
+.dateCreated {
+  flex-basis: $MediaBrowserDateCreatedWidth;
+}
+
+.size {
+  flex-basis: $MediaBrowserSizeWidth;
+}
+
+.sharedWith {
+  flex-basis: $MediaBrowserSharedWidth;
+}
+
+.dateCreated,
+.size,
+.sharedWith {
+  @include medium {
+    display: none;
+  }
+}

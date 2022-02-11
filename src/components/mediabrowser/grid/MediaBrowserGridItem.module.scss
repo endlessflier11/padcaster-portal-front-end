@@ -1,0 +1,23 @@
+@import "../../../styles/shared.scss";
+
+.container {
+  height: auto;
+}
+
+.thumbnail {
+  // TODO: placeholder color
+  background: cornflowerblue;
+  width: $MediaBrowserGridItemThumbnailWidth;
+  height: $MediaBrowserGridItemThumbnailHeight;
+}
+
+.icons {
+  display: flex;
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.icon {
+  position: relative;
+  top: 2px;
+}

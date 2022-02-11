@@ -1,0 +1,14 @@
+@import "../../styles/shared.scss";
+
+.container {
+  height: $headerHeight;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+
+.placeholder {
+  margin-left: $pageMargin;
+  color: $colorWhite;
+}

@@ -1,0 +1,48 @@
+@import "../../styles/shared.scss";
+
+.container {
+  display: flex;
+  &:hover {
+    cursor: pointer;
+  }
+  svg,
+  g,
+  path {
+    fill: $colorAction;
+    stroke: $colorAction;
+  }
+  &:hover {
+    .button {
+      color: $colorActionHover;
+      cursor: pointer;
+    }
+    svg,
+    g,
+    path {
+      fill: $colorActionHover;
+      stroke: $colorActionHover;
+    }
+  }
+}
+
+.button {
+  color: $colorAction;
+  background: none;
+  padding: 0;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.leftIcon,
+.rightIcon {
+  position: relative;
+  top: 3px;
+}
+
+.leftIcon {
+  margin-right: 7px;
+}
+
+.rightIcon {
+  margin-left: 7px;
+}

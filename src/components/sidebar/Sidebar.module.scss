@@ -1,0 +1,39 @@
+@import "../../styles/shared.scss";
+
+.container {
+  &, &Active {
+    position: fixed;
+    width: $sidebarWidth;
+    height: 100%;
+    background: $colorPrimary;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    left: -$sidebarWidth;
+    @include desktop {
+      left: 0;
+    }
+
+    @include medium {
+      left: -$sidebarWidth;
+    }
+
+    transition: all $easeDuration $ease;
+
+    z-index: 100;
+
+    padding-bottom: calc($pageMargin - 15px);
+  }
+
+  &Active {
+    left: 0;
+  }
+}
+
+.divider {
+  width: calc($sidebarWidth - calc($pageMargin + $pageMargin));
+  height: 2pt;
+  margin: 0 $pageMargin 3pt $pageMargin;
+  border: solid 1pt rgba($colorSecondary, 0.2);
+}

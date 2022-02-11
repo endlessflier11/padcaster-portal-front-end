@@ -1,0 +1,33 @@
+@import "../../styles/shared.scss";
+
+.container {
+  &,
+  &NavOpen {
+    margin-left: $pageMargin;
+    width: 32px;
+    height: auto;
+    transform: scaleX(1.0);
+
+    @include desktop {
+      margin-left: -24pt;
+      transform: scaleX(0.0);
+      visibility: hidden;
+    }
+
+    @include medium {
+      margin-left: $pageMargin;
+      transform: scaleX(1.0);
+      visibility: visible;
+    }
+
+    transition: all $easeDuration $ease;
+  }
+
+  &NavOpen {
+    margin-left: -24pt;
+    transform: scaleX(0.0);
+    visibility: hidden;
+  }
+
+  cursor: pointer;
+}

@@ -1,0 +1,37 @@
+@import "../../styles/shared.scss";
+
+.container {
+  position: relative;
+  padding-right: 40px;
+  &::before {
+    content: "";
+    height: 6px;
+    background: $colorGray-Upload;
+    width: calc(100% - 40px);
+    position: absolute;
+    z-index: -1;
+    top: 22px;
+  }
+  &:last-child {
+    margin-bottom: 17px;
+  }
+}
+
+.name {
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.progress {
+  height: 6px;
+  background: $colorAction;
+}
+
+.cancel {
+  background: white;
+  padding: 0;
+  position: absolute;
+  top: 15px;
+  right: 12px;
+  transform: scale(0.6);
+}

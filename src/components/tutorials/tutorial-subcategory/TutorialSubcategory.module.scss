@@ -1,0 +1,29 @@
+@import "../../../styles/shared.scss";
+
+.container {
+  height: auto;
+  width: 100%;
+}
+.mediumWidth {
+  max-width: 50rem;
+}
+.fullWidth {
+  width: 100%;
+}
+
+.subcategory {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+}
+.title {
+  margin-bottom: 1rem;
+}
+
+.preview {
+  margin-top: 1rem;
+}

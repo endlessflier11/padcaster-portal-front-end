@@ -1,4 +1,4 @@
-@import "../../styles/shared.scss";
+@import '../../styles/shared.scss';
 
 .container {
   height: $MediaBrowserHeaderHeight;
@@ -21,7 +21,7 @@
 
 .uploadIcon {
   padding: 0;
-  background-color: $colorGreyLight;
+  background-color: transparent;
   @include medium {
     display: none;
   }
@@ -38,8 +38,10 @@
 }
 
 .gridOrListIcon {
-  margin-left: $MediaBrowserToolbarIconsMargin;
-  background-color: $colorGreyLight;
+  display: flex;
+  justify-content: flex-end;
+  width: 40px;
+  background-color: transparent;
   padding: 0;
   margin-top: 4px;
   cursor: pointer;

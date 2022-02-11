@@ -7,13 +7,18 @@ import { AppContext } from '../../contexts/AppContext';
 import ViewType from '../../types/ViewType';
 
 export const TutorialsPage = () => {
+  const { setViewType } = useContext(AppContext);
+  useEffect(() => {
+    setViewType(ViewType.TUTORIALS);
+  }, [setViewType]);
+
   return (
     <Wrapper>
       <Tutorials>
         <TutorialsList />
       </Tutorials>
     </Wrapper>
-  )
-}
+  );
+};
 
 export default TutorialsPage;

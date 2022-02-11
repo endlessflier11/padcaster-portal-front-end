@@ -10,31 +10,32 @@ const UserProvider = ({ children }) => {
   const router = useRouter();
 
   // This challenge can be used for testing
-  const CHALLENGE = "IAAAAGPiiW0nHxTZ2/XyU1RXz+2PB86r";
+  const CHALLENGE = 'IAAAAGPiiW0nHxTZ2/XyU1RXz+2PB86r';
 
   /**
    * Old authentication route that does not require a challenge and pow signing.
    */
-  const devLogin = useCallback(async (email, password, returnUrl = '/') => {
-    setLoggingIn(true);
-    const response = await requestJson(
-      `${process.env.TEST_API_URL}/auth`,
-      {
+  const devLogin = useCallback(
+    async (email, password, returnUrl = '/') => {
+      setLoggingIn(true);
+      const response = await requestJson(`${process.env.TEST_API_URL}/auth`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
       });
-    if (response && response.token) {
-      let u = ({ email, isAdmin: true })
-      localStorage.setItem('token', response.token);
-      setUser(u);
+      if (response && response.token) {
+        let u = { email, isAdmin: true };
+        localStorage.setItem('token', response.token);
+        setUser(u);
 
-      router.push(returnUrl)
-    }
-    setLoggingIn(false);
-  }, [router]);
+        router.push(returnUrl);
+      }
+      setLoggingIn(false);
+    },
+    [router]
+  );
 
   // TODO: Test expiration
   async function challenge() {
@@ -78,27 +79,30 @@ const UserProvider = ({ children }) => {
    * with an active subscription)
    * returns a token on success
    */
-  const login = useCallback(async (email, password, returnUrl = '/') => {
-    setLoggingIn(true);
+  const login = useCallback(
+    async (email, password, returnUrl = '/') => {
+      setLoggingIn(true);
 
-    const c = (await challenge()) || CHALLENGE;
-    if (!c) {
-      return;
-    }
+      const c = (await challenge()) || CHALLENGE;
+      if (!c) {
+        return;
+      }
 
-    const response = await postJson(
-      `/api/v0/account/login/`,
-      { email: powSign(c, email), password: powSign(c, password) }
-    )
+      const response = await postJson(`/api/v0/account/login/`, {
+        email: powSign(c, email),
+        password: powSign(c, password),
+      });
 
-    if (response && response.token) {
-      localStorage.setItem('token', response.token);
-      await fetchUser();
-      router.push(returnUrl)
-    }
+      if (response && response.token) {
+        localStorage.setItem('token', response.token);
+        await fetchUser();
+        router.push(returnUrl);
+      }
 
-    setLoggingIn(false);
-  }, [router]);
+      setLoggingIn(false);
+    },
+    [router]
+  );
 
   /**
    * invalidates the token used to authenticate this request
@@ -115,17 +119,19 @@ const UserProvider = ({ children }) => {
    */
   const fetchUser = async () => {
     // TODO: Update to /account/ on the endpoint is ready
-    const res = await requestJson(`${process.env.TEST_API_URL}/admin/categories/`)
+    const res = await requestJson(
+      `${process.env.TEST_API_URL}/admin/categories/`
+    );
     if (res) {
       setUser({
         email: 'test',
-        isAdmin: true
+        isAdmin: true,
       });
       return true;
     } else {
       return false;
     }
-  }
+  };
 
   /**
    * signs and returns value by padding it with 4 random bytes until the first
@@ -140,28 +146,31 @@ const UserProvider = ({ children }) => {
    */
   async function powSign(challenge, value) {
     // input checks; first one can be removed if using typescript
-    if(typeof challenge != 'string' || typeof value != 'string')
-        throw new TypeError('challenge and value must be strings')
-    if(challenge.length < 32 || challenge.length % 4)
-        throw new RangeError('invalid challenge')
+    if (typeof challenge != 'string' || typeof value != 'string')
+      throw new TypeError('challenge and value must be strings');
+    if (challenge.length < 32 || challenge.length % 4)
+      throw new RangeError('invalid challenge');
 
     // convert prefix (base64) and suffix (utf8) to bytes
-    let prefix = Uint8Array.from(atob(challenge), c => c.charCodeAt(0))
-    let suffix = new TextEncoder().encode(value)
+    let prefix = Uint8Array.from(atob(challenge), (c) => c.charCodeAt(0));
+    let suffix = new TextEncoder().encode(value);
 
     // payload = prefix + wildcard + suffix
-    let payload = new Uint8Array(prefix.length + 4 + suffix.length)
-    payload.set(prefix, 0)
-    payload.set(suffix, prefix.length + 4)
+    let payload = new Uint8Array(prefix.length + 4 + suffix.length);
+    payload.set(prefix, 0);
+    payload.set(suffix, prefix.length + 4);
 
     // busy loop
-    let difficulty = new DataView(payload.buffer).getUint32(0)
-    let candidate = new Uint32Array(payload.buffer, prefix.length, 1)
-    while(difficulty < new DataView(await crypto.subtle.digest('SHA-256', payload)).getUint32(0))
-        candidate[0]++
+    let difficulty = new DataView(payload.buffer).getUint32(0);
+    let candidate = new Uint32Array(payload.buffer, prefix.length, 1);
+    while (
+      difficulty <
+      new DataView(await crypto.subtle.digest('SHA-256', payload)).getUint32(0)
+    )
+      candidate[0]++;
 
     // payload is usually packed into a json, so base64 it
-    return btoa(String.fromCharCode(...payload))
+    return btoa(String.fromCharCode(...payload));
   }
 
   /**
@@ -174,7 +183,9 @@ const UserProvider = ({ children }) => {
    */
   async function forgotPassword(email) {
     const challenge = await challenge();
-    return await postJson(`/api/v0/account/forgot/`, { email: powSigned(challenge, email) });
+    return await postJson(`/api/v0/account/forgot/`, {
+      email: powSigned(challenge, email),
+    });
   }
 
   /**
@@ -212,7 +223,9 @@ const UserProvider = ({ children }) => {
    */
   async function refresh(password) {
     const c = await challenge();
-    return await postJson(`/api/v0/account/refresh/`, { password: powSign(c, password) })
+    return await postJson(`/api/v0/account/refresh/`, {
+      password: powSign(c, password),
+    });
   }
 
   /**
@@ -220,7 +233,7 @@ const UserProvider = ({ children }) => {
    * into; this operation requires a recently issued / refreshed session
    */
   async function sessions() {
-    return await requestJson(`/api/v0/account/sessions/`)
+    return await requestJson(`/api/v0/account/sessions/`);
   }
 
   /**
@@ -231,23 +244,26 @@ const UserProvider = ({ children }) => {
    * token that must be used in subsequent requests
    */
   async function password() {
-    return await postJson(`/api/v0/account/password/`)
+    return await postJson(`/api/v0/account/password/`);
   }
 
-
   return (
-    <UserContext.Provider value={{
-      user, setUser,
-      login, logout,
-      devLogin,
-      loggingIn,
-      fetchUser,
-      forgotPassword,
-      resetPassword
-    }}>
+    <UserContext.Provider
+      value={{
+        user,
+        setUser,
+        login,
+        logout,
+        devLogin,
+        loggingIn,
+        fetchUser,
+        forgotPassword,
+        resetPassword,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
-}
+};
 
 export default UserProvider;

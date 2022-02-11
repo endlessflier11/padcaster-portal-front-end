@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import styles from './MediaBrowser.module.scss'
+import styles from './MediaBrowser.module.scss';
 import MediaBrowserHeader from './MediaBrowserHeader';
 import MediaBrowserStatus from './MediaBrowserStatus';
 import MediaBrowserList from './list/MediaBrowserList';
@@ -47,7 +47,7 @@ const defaultMedia = [
     name: 'Photosynthesis.mp4',
     dateCreated: new Date(Date.now()),
     size: 1049212232,
-    sharedWith: ['myself'],
+    sharedWith: ['Only Me'],
     isSelected: false,
     type: MediaTypes.MP4,
   },
@@ -63,11 +63,11 @@ const defaultMedia = [
     name: 'Chart.jpg',
     dateCreated: new Date(Date.now()),
     size: 1049122,
-    sharedWith: ['person2', 'person3', 'person4', 'person6'],
+    sharedWith: ['person2', 'person3', 'person4'],
     isSelected: false,
     type: MediaTypes.JPG,
   },
-]
+];
 
 const MediaBrowser = () => {
   const [mediaViewType, setMediaViewType] = useState(MyMediaViewTypes.LIST);
@@ -77,15 +77,15 @@ const MediaBrowser = () => {
   const { isMobile } = useContext(DeviceContext);
   const [showUploadModal, setShowUploadModal] = useState(false);
 
-  const handleMediaItemClick = index => () => {
+  const handleMediaItemClick = (index) => () => {
     let count = mediaSelectedCount;
     const newMedia = media.map((item, i) => {
       if (i === index) {
         count = item.isSelected ? --count : ++count;
         return {
           ...item,
-          isSelected: !item.isSelected
-        }
+          isSelected: !item.isSelected,
+        };
       }
       return item;
     });
@@ -105,19 +105,29 @@ const MediaBrowser = () => {
   };
 
   const toggleSelectAllItems = () => {
-    let nextHeaderCheckboxState = checkBoxTypes.CHECKED
+    let nextHeaderCheckboxState = checkBoxTypes.CHECKED;
     let count = media.length;
     if (mediaSelectedCount === media.length) {
       nextHeaderCheckboxState = checkBoxTypes.EMPTY;
       count = 0;
     }
 
-    setMedia(media.map(item => ({ ...item, isSelected: mediaSelectedCount !== media.length })));
+    setMedia(
+      media.map((item) => ({
+        ...item,
+        isSelected: mediaSelectedCount !== media.length,
+      }))
+    );
     setMediaSelectedCount(count);
     setHeaderCheckboxState(nextHeaderCheckboxState);
   };
 
-  const toggleMediaViewType = () => setMediaViewType(mediaViewType === MyMediaViewTypes.LIST ? MyMediaViewTypes.GRID : MyMediaViewTypes.LIST)
+  const toggleMediaViewType = () =>
+    setMediaViewType(
+      mediaViewType === MyMediaViewTypes.LIST
+        ? MyMediaViewTypes.GRID
+        : MyMediaViewTypes.LIST
+    );
 
   const toggleUploadModal = () => setShowUploadModal(!showUploadModal);
 
@@ -126,7 +136,11 @@ const MediaBrowser = () => {
       {mediaSelectedCount ? (
         <MediaBrowserStatus mediaSelectedCount={mediaSelectedCount} />
       ) : (
-        <MediaBrowserHeader toggleMediaViewType={toggleMediaViewType} mediaViewType={mediaViewType} toggleUploadModal={toggleUploadModal}/>
+        <MediaBrowserHeader
+          toggleMediaViewType={toggleMediaViewType}
+          mediaViewType={mediaViewType}
+          toggleUploadModal={toggleUploadModal}
+        />
       )}
       {mediaViewType === MyMediaViewTypes.LIST || isMobile ? (
         <MediaBrowserList
@@ -136,18 +150,13 @@ const MediaBrowser = () => {
           headerCheckboxState={headerCheckboxState}
         />
       ) : (
-        <MediaBrowserGrid
-          media={media}
-        />
+        <MediaBrowserGrid media={media} />
       )}
       {showUploadModal && (
-        <UploadModal
-          closeModal={() => setShowUploadModal(false)}
-        />
+        <UploadModal closeModal={() => setShowUploadModal(false)} />
       )}
     </div>
   );
-}
+};
 
 export default MediaBrowser;
-

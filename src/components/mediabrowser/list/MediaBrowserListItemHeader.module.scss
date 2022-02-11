@@ -1,4 +1,4 @@
-@import "../../../styles/shared.scss";
+@import '../../../styles/shared.scss';
 
 .container {
   height: $MediaBrowserRowHeight;
@@ -14,13 +14,15 @@
 }
 
 .nameWrapper,
+.name,
 .dateCreated,
 .size,
 .sharedWith,
 .checkbox {
   flex: 0 0 auto;
-  color: $colorSecondary;
-  font-size: 10px;
+  color: #9e9e9e;
+  font-size: 10pt;
+  font-weight: bold;
 }
 
 .checkbox {
@@ -30,11 +32,6 @@
 
 .nameWrapper {
   flex-basis: $MediaBrowserNameWidth;
-}
-
-.name {
-  color: $colorSecondary;
-  font-size: 10px;
 }
 
 .dateCreated {

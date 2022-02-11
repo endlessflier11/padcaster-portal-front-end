@@ -1,3 +1,49 @@
+@import '../../styles/shared.scss';
+
 .container {
   height: auto;
+  position: absolute;
+  display: flex;
+  right: $pageMargin;
+}
+
+.userNameWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-right: 8px;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.userName {
+  font-size: 10pt;
+  font-weight: bold;
+  color: $colorSecondary;
+  line-height: 11pt;
+}
+
+.userType {
+  font-size: 10pt;
+  font-weight: normal;
+  color: $colorSecondary;
+  line-height: 11pt;
+}
+
+.userAvatar {
+  width: 33pt;
+  height: 33pt;
+  border-radius: 50%;
+  background-color: $colorGreyLight;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12pt;
+  font-weight: bold;
+}
+
+.userAvatar:hover {
+  cursor: pointer;
 }

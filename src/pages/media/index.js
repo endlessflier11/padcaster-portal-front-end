@@ -15,6 +15,7 @@ export const MediaPage = () => {
 
   // TODO: Fetch folders and files list
   const mediaList = useMediaList(get(last(mediaPath), 'id'));
+
   const handleGotoSubFolder = useCallback(
     (id) => {
       // Check if parent folder exists

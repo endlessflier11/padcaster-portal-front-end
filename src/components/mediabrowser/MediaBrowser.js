@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import MediaBrowserHeader from './MediaBrowserHeader';
 import MediaBrowserStatus from './MediaBrowserStatus';
@@ -11,6 +11,7 @@ import { SearchContext } from '../../contexts/SearchContext';
 import UploadModal from '../upload/UploadModal';
 import { useFilteredMediaList } from '../../pages/effects/media';
 import styles from './MediaBrowser.module.scss';
+import MediaTypes from '../../types/MediaTypes';
 
 const MediaBrowser = ({ mediaPath, data, onGotoSubFolder }) => {
   const { query } = useContext(SearchContext);
@@ -80,6 +81,16 @@ const MediaBrowser = ({ mediaPath, data, onGotoSubFolder }) => {
 
   const toggleUploadModal = () => setShowUploadModal(!showUploadModal);
 
+  const handleGotoSubFolder = useCallback(
+    (id) => {
+      const currentMedia = media.find((item) => item.id === id);
+      if (currentMedia?.type === MediaTypes.FOLDER) {
+        onGotoSubFolder(id);
+      }
+    },
+    [media, onGotoSubFolder]
+  );
+
   return (
     <div className={styles.container}>
       {mediaSelectedCount ? (
@@ -105,10 +116,13 @@ const MediaBrowser = ({ mediaPath, data, onGotoSubFolder }) => {
               handleMediaItemClick={handleMediaItemClick}
               toggleSelectAllItems={toggleSelectAllItems}
               headerCheckboxState={headerCheckboxState}
-              onGotoSubFolder={onGotoSubFolder}
+              onGotoSubFolder={handleGotoSubFolder}
             />
           ) : (
-            <MediaBrowserGrid media={media} onGotoSubFolder={onGotoSubFolder} />
+            <MediaBrowserGrid
+              media={media}
+              onGotoSubFolder={handleGotoSubFolder}
+            />
           )}
           {showUploadModal && (
             <UploadModal closeModal={() => setShowUploadModal(false)} />

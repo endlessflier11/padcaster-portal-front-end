@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import styles from './MediaBrowser.module.scss';
+import React, { useState, useContext, useEffect } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 import MediaBrowserHeader from './MediaBrowserHeader';
 import MediaBrowserStatus from './MediaBrowserStatus';
 import MediaBrowserList from './list/MediaBrowserList';
@@ -9,73 +9,21 @@ import MyMediaViewTypes from '../../types/MyMediaViewTypes';
 import MediaBrowserGrid from './grid/MediaBrowserGrid';
 import { DeviceContext } from '../../contexts/DeviceContext';
 import UploadModal from '../upload/UploadModal';
+import { useFilteredMediaList } from '../../pages/effects/media';
+import styles from './MediaBrowser.module.scss';
 
-const defaultMedia = [
-  {
-    name: 'something',
-    dateCreated: new Date(Date.now()),
-    size: 345,
-    sharedWith: ['person1', 'person2'],
-    isSelected: false,
-    type: MediaTypes.FOLDER,
-  },
-  {
-    name: 'something else',
-    dateCreated: new Date(Date.now()),
-    size: 34565,
-    sharedWith: ['person1'],
-    isSelected: false,
-    type: MediaTypes.JPG,
-  },
-  {
-    name: '3rd thing',
-    dateCreated: new Date(Date.now()),
-    size: 1049812,
-    sharedWith: ['person3'],
-    isSelected: false,
-    type: MediaTypes.MP4,
-  },
-  {
-    name: 'Mitochondria.mp4',
-    dateCreated: new Date(Date.now()),
-    size: 10492,
-    sharedWith: ['person3', 'person5'],
-    isSelected: false,
-    type: MediaTypes.MP4,
-  },
-  {
-    name: 'Photosynthesis.mp4',
-    dateCreated: new Date(Date.now()),
-    size: 1049212232,
-    sharedWith: ['Only Me'],
-    isSelected: false,
-    type: MediaTypes.MP4,
-  },
-  {
-    name: 'WorldMap.jpg',
-    dateCreated: new Date(Date.now()),
-    size: 1049122,
-    sharedWith: ['person1', 'person2', 'person3', 'person4', 'person5'],
-    isSelected: false,
-    type: MediaTypes.JPG,
-  },
-  {
-    name: 'Chart.jpg',
-    dateCreated: new Date(Date.now()),
-    size: 1049122,
-    sharedWith: ['person2', 'person3', 'person4'],
-    isSelected: false,
-    type: MediaTypes.JPG,
-  },
-];
-
-const MediaBrowser = () => {
+const MediaBrowser = ({ mediaPath, data, onGotoSubFolder }) => {
   const [mediaViewType, setMediaViewType] = useState(MyMediaViewTypes.LIST);
   const [mediaSelectedCount, setMediaSelectedCount] = useState(0);
-  const [media, setMedia] = useState(defaultMedia);
+  const [media, setMedia] = useFilteredMediaList(data);
   const [headerCheckboxState, setHeaderCheckboxState] = useState();
   const { isMobile } = useContext(DeviceContext);
   const [showUploadModal, setShowUploadModal] = useState(false);
+
+  useEffect(() => {
+    setMediaSelectedCount(0);
+    setHeaderCheckboxState(checkBoxTypes.EMPTY);
+  }, [data]);
 
   const handleMediaItemClick = (index) => () => {
     let count = mediaSelectedCount;
@@ -131,29 +79,42 @@ const MediaBrowser = () => {
 
   const toggleUploadModal = () => setShowUploadModal(!showUploadModal);
 
+  const loading = !data;
+
   return (
     <div className={styles.container}>
       {mediaSelectedCount ? (
         <MediaBrowserStatus mediaSelectedCount={mediaSelectedCount} />
       ) : (
         <MediaBrowserHeader
+          mediaPath={mediaPath}
           toggleMediaViewType={toggleMediaViewType}
           mediaViewType={mediaViewType}
           toggleUploadModal={toggleUploadModal}
+          onGotoSubFolder={onGotoSubFolder}
         />
       )}
-      {mediaViewType === MyMediaViewTypes.LIST || isMobile ? (
-        <MediaBrowserList
-          media={media}
-          handleMediaItemClick={handleMediaItemClick}
-          toggleSelectAllItems={toggleSelectAllItems}
-          headerCheckboxState={headerCheckboxState}
-        />
+      {loading ? (
+        <div className={styles.loadingWrapper}>
+          <CircularProgress className={styles.loadingIndicator} />
+        </div>
       ) : (
-        <MediaBrowserGrid media={media} />
-      )}
-      {showUploadModal && (
-        <UploadModal closeModal={() => setShowUploadModal(false)} />
+        <>
+          {mediaViewType === MyMediaViewTypes.LIST || isMobile ? (
+            <MediaBrowserList
+              media={media}
+              handleMediaItemClick={handleMediaItemClick}
+              toggleSelectAllItems={toggleSelectAllItems}
+              headerCheckboxState={headerCheckboxState}
+              onGotoSubFolder={onGotoSubFolder}
+            />
+          ) : (
+            <MediaBrowserGrid media={media} />
+          )}
+          {showUploadModal && (
+            <UploadModal closeModal={() => setShowUploadModal(false)} />
+          )}
+        </>
       )}
     </div>
   );

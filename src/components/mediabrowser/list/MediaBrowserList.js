@@ -1,8 +1,14 @@
-import styles from './MediaBrowserList.module.scss'
+import styles from './MediaBrowserList.module.scss';
 import MediaBrowserListItem from './MediaBrowserListItem';
 import MediaBrowserListItemHeader from './MediaBrowserListItemHeader';
 
-const MediaBrowserList = ({ media, handleMediaItemClick, toggleSelectAllItems, headerCheckboxState }) => {
+const MediaBrowserList = ({
+  media,
+  handleMediaItemClick,
+  toggleSelectAllItems,
+  headerCheckboxState,
+  onGotoSubFolder,
+}) => {
   return (
     <div className={styles.container}>
       <MediaBrowserListItemHeader
@@ -15,12 +21,12 @@ const MediaBrowserList = ({ media, handleMediaItemClick, toggleSelectAllItems, h
             {...mediaItem}
             key={i}
             handleMediaItemClick={handleMediaItemClick(i)}
+            onGotoSubFolder={onGotoSubFolder}
           />
-        )
+        );
       })}
     </div>
   );
-}
+};
 
 export default MediaBrowserList;
-

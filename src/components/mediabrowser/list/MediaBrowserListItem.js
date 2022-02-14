@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { first, last } from 'lodash';
+import classNames from 'classnames';
 import MediaTypes from '../../../types/MediaTypes';
 import VideoImageIcon from '../../icons/VideoImageIcon';
 import FolderIcon from '../../icons/FolderIcon';
@@ -9,8 +9,10 @@ import { makeDateString } from '../../../utils/date';
 import { formatFileSize } from '../../../utils/file';
 import Tooltip from '../../common/Tooltip';
 import styles from './MediaBrowserListItem.module.scss';
+import { formatSharedWith } from '../../../utils/social';
 
 const MediaBrowserListItem = ({
+  id,
   name,
   dateCreated,
   size,
@@ -18,6 +20,7 @@ const MediaBrowserListItem = ({
   isSelected,
   type,
   handleMediaItemClick,
+  onGotoSubFolder,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -34,24 +37,6 @@ const MediaBrowserListItem = ({
     }
   }, []);
 
-  const formatSharedWith = useCallback((persons) => {
-    const otherCount = persons.length - 2;
-    const showingPersons = persons.slice(0, 2);
-    const lastPerson =
-      showingPersons.length === 2 ? last(showingPersons) : null;
-    const firstPerson = first(showingPersons);
-    let sharedStr = firstPerson;
-    if (lastPerson) {
-      if (otherCount > 0) {
-        sharedStr = sharedStr + `, ${lastPerson}, and ${otherCount} `;
-        sharedStr = sharedStr + (otherCount > 1 ? 'Others' : 'Other');
-      } else {
-        sharedStr = sharedStr + ' and ' + lastPerson;
-      }
-    }
-    return sharedStr;
-  }, []);
-
   return (
     <div className={styles.container}>
       <div>
@@ -64,13 +49,28 @@ const MediaBrowserListItem = ({
           checked={isSelected}
         />
       </div>
-      <label className={styles.nameWrapper} htmlFor={name}>
+      <label
+        className={styles.nameWrapper}
+        htmlFor={type !== MediaTypes.FOLDER ? name : null}
+      >
         {selectIcon(type)}
-        <p className={styles.name}>{name}</p>
+        <p
+          className={classNames(
+            styles.name,
+            type === MediaTypes.FOLDER && styles.folderName
+          )}
+          onClick={() => onGotoSubFolder(id)}
+        >
+          {name}
+        </p>
       </label>
       <p className={styles.dateCreated}>{makeDateString(dateCreated)}</p>
-      <p className={styles.size}>{formatFileSize(size, 2)}</p>
-      <p className={styles.sharedWith}>{formatSharedWith(sharedWith)}</p>
+      <p className={styles.size}>
+        {type !== MediaTypes.FOLDER && formatFileSize(size, 2)}
+      </p>
+      <p className={styles.sharedWith}>
+        {type !== MediaTypes.FOLDER && formatSharedWith(sharedWith)}
+      </p>
       <Tooltip
         content={
           <>

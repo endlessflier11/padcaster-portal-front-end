@@ -49,3 +49,26 @@
     display: none;
   }
 }
+
+.pathWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.unlinkedPath {
+  color: $colorPrimary !important;
+  cursor: default;
+}
+
+.linkedPath {
+  color: $colorSecondary !important;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.splitLine {
+  color: $colorSecondary !important;
+}

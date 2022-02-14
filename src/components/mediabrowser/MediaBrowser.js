@@ -3,19 +3,20 @@ import CircularProgress from '@mui/material/CircularProgress';
 import MediaBrowserHeader from './MediaBrowserHeader';
 import MediaBrowserStatus from './MediaBrowserStatus';
 import MediaBrowserList from './list/MediaBrowserList';
-import MediaTypes from '../../types/MediaTypes';
 import checkBoxTypes from '../../types/CheckboxTypes';
 import MyMediaViewTypes from '../../types/MyMediaViewTypes';
 import MediaBrowserGrid from './grid/MediaBrowserGrid';
 import { DeviceContext } from '../../contexts/DeviceContext';
+import { SearchContext } from '../../contexts/SearchContext';
 import UploadModal from '../upload/UploadModal';
 import { useFilteredMediaList } from '../../pages/effects/media';
 import styles from './MediaBrowser.module.scss';
 
 const MediaBrowser = ({ mediaPath, data, onGotoSubFolder }) => {
+  const { query } = useContext(SearchContext);
   const [mediaViewType, setMediaViewType] = useState(MyMediaViewTypes.LIST);
   const [mediaSelectedCount, setMediaSelectedCount] = useState(0);
-  const [media, setMedia] = useFilteredMediaList(data);
+  const [media, setMedia] = useFilteredMediaList(data, query);
   const [headerCheckboxState, setHeaderCheckboxState] = useState();
   const { isMobile } = useContext(DeviceContext);
   const [showUploadModal, setShowUploadModal] = useState(false);
@@ -79,8 +80,6 @@ const MediaBrowser = ({ mediaPath, data, onGotoSubFolder }) => {
 
   const toggleUploadModal = () => setShowUploadModal(!showUploadModal);
 
-  const loading = !data;
-
   return (
     <div className={styles.container}>
       {mediaSelectedCount ? (
@@ -94,7 +93,7 @@ const MediaBrowser = ({ mediaPath, data, onGotoSubFolder }) => {
           onGotoSubFolder={onGotoSubFolder}
         />
       )}
-      {loading ? (
+      {!data ? (
         <div className={styles.loadingWrapper}>
           <CircularProgress className={styles.loadingIndicator} />
         </div>
@@ -109,7 +108,7 @@ const MediaBrowser = ({ mediaPath, data, onGotoSubFolder }) => {
               onGotoSubFolder={onGotoSubFolder}
             />
           ) : (
-            <MediaBrowserGrid media={media} />
+            <MediaBrowserGrid media={media} onGotoSubFolder={onGotoSubFolder} />
           )}
           {showUploadModal && (
             <UploadModal closeModal={() => setShowUploadModal(false)} />

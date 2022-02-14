@@ -30,8 +30,8 @@ export function useMediaList(id) {
   return data;
 }
 
-export function useFilteredMediaList(data) {
-  const [filteredData, setFilteredData] = useState([]);
+export function useFilteredMediaList(data, searchQuery) {
+  const [mediaList, setMediaList] = useState([]);
 
   useEffect(() => {
     const sortedData = (data || []).map((media) => {
@@ -55,8 +55,13 @@ export function useFilteredMediaList(data) {
         type,
       };
     });
-    setFilteredData(sortedData);
-  }, [data]);
 
-  return [filteredData, setFilteredData];
+    const filterdData = sortedData.filter((media) =>
+      media.name.toUpperCase().includes(searchQuery.toUpperCase())
+    );
+
+    setMediaList(filterdData);
+  }, [data, searchQuery]);
+
+  return [mediaList, setMediaList];
 }

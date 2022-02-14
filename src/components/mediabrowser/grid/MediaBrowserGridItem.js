@@ -8,15 +8,24 @@ import TrashIcon from '../../icons/TrashIcon';
 import { formatFileSize } from '../../../utils/file';
 
 const MediaBrowserGridItem = ({
+  id,
   name,
   dateCreated,
   size,
   sharedWith,
   type,
+  onGotoSubFolder,
 }) => {
   const selectThumbnail = () => {
     if (type === MediaTypes.FOLDER) {
-      return <BigFolderIcon />;
+      return (
+        <div className={styles.folderWrapper}>
+          <h1 className={styles.folderName} onClick={() => onGotoSubFolder(id)}>
+            {name}
+          </h1>
+          <BigFolderIcon />
+        </div>
+      );
     }
     return <div className={styles.thumbnail}>thumbnail goes here</div>;
   };

@@ -35,9 +35,10 @@ export function useFilteredMediaList(data, searchQuery) {
 
   useEffect(() => {
     const sortedData = (data || []).map((media) => {
-      let type = MediaTypes.FOLDER;
-      if (media?.folder === 2) type = MediaTypes.MP4;
-      else if (media?.folder === 3) type = MediaTypes.JPG;
+      let type;
+      if (media.mime.includes('folder')) type = MediaTypes.FOLDER;
+      else if (media.mime.includes('stream')) type = MediaTypes.MP4;
+      else type = MediaTypes.JPG;
 
       return {
         id: media.id,

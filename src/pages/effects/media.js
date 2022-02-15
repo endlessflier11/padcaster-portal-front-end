@@ -10,13 +10,14 @@ export function useMediaList(id) {
     async function fetchData() {
       try {
         const mediaList = await fetchMediaList(id);
-        const sharedMediaList = await Promise.all(
+        const mergedMediaList = await Promise.all(
           mediaList.map(async (media) => ({
             ...media,
             sharedWith: await fetchSharedMembers(media.id),
           }))
         );
-        setData(sharedMediaList);
+        console.log('111 fetch media list=', mergedMediaList);
+        setData(mergedMediaList);
       } catch (err) {
         console.error(err);
         setData([]);
@@ -37,7 +38,7 @@ export function useFilteredMediaList(data, searchQuery) {
     const sortedData = (data || []).map((media) => {
       let type;
       if (media.mime.includes('folder')) type = MediaTypes.FOLDER;
-      else if (media.mime.includes('stream')) type = MediaTypes.MP4;
+      else if (media?.video) type = MediaTypes.MP4;
       else type = MediaTypes.JPG;
 
       return {

@@ -8,7 +8,7 @@ const HeaderUser = () => {
 
   const [firstName, userType, imgUrl] = useMemo(() => {
     return [
-      (user.firstName || 'Unknown').toUpperCase(),
+      user.name.toUpperCase(),
       user.isAdmin ? 'Admin' : 'User',
       user.image,
     ];

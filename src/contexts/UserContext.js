@@ -119,12 +119,12 @@ const UserProvider = ({ children }) => {
    */
   const fetchUser = async () => {
     // TODO: Update to /account/ on the endpoint is ready
-    const res = await requestJson(
-      `${process.env.TEST_API_URL}/admin/categories/`
-    );
+    const res = await requestJson(`${process.env.TEST_API_URL}/account/`);
     if (res) {
       setUser({
-        email: 'test',
+        userId: res.id,
+        email: res.email,
+        name: res?.name || res.email,
         isAdmin: true,
       });
       return true;

@@ -16,7 +16,6 @@ export function useMediaList(id) {
             sharedWith: await fetchSharedMembers(media.id),
           }))
         );
-        console.log('111 fetch media list=', mergedMediaList);
         setData(mergedMediaList);
       } catch (err) {
         console.error(err);

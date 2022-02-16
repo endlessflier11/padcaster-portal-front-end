@@ -124,7 +124,9 @@ const UserProvider = ({ children }) => {
       setUser({
         userId: res.id,
         email: res.email,
-        name: res?.name || res.email,
+        username: res?.username || res.email,
+        firstName: res?.firstName || res.email,
+        lastName: res?.lastName || '',
         isAdmin: true,
       });
       return true;

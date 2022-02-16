@@ -5,44 +5,39 @@ import MediaBrowserStatus from './MediaBrowserStatus';
 import MediaBrowserList from './list/MediaBrowserList';
 import checkBoxTypes from '../../types/CheckboxTypes';
 import MyMediaViewTypes from '../../types/MyMediaViewTypes';
+import MediaTypes from '../../types/MediaTypes';
 import MediaBrowserGrid from './grid/MediaBrowserGrid';
 import { DeviceContext } from '../../contexts/DeviceContext';
 import { SearchContext } from '../../contexts/SearchContext';
 import UploadModal from '../upload/UploadModal';
 import { useFilteredMediaList } from '../../pages/effects/media';
 import styles from './MediaBrowser.module.scss';
-import MediaTypes from '../../types/MediaTypes';
+import { downloadMultiFiles } from '../../utils/file';
 
 const MediaBrowser = ({ mediaPath, data, onGotoSubFolder }) => {
   const { query } = useContext(SearchContext);
   const [mediaViewType, setMediaViewType] = useState(MyMediaViewTypes.LIST);
-  const [mediaSelectedCount, setMediaSelectedCount] = useState(0);
+  const [selectedMedia, setSelectedMedia] = useState([]);
   const [media, setMedia] = useFilteredMediaList(data, query);
   const [headerCheckboxState, setHeaderCheckboxState] = useState();
   const { isMobile } = useContext(DeviceContext);
   const [showUploadModal, setShowUploadModal] = useState(false);
 
   useEffect(() => {
-    setMediaSelectedCount(0);
+    setSelectedMedia([]);
     setHeaderCheckboxState(checkBoxTypes.EMPTY);
   }, [data]);
 
   const handleMediaItemClick = (index) => () => {
-    let count = mediaSelectedCount;
-    const newMedia = media.map((item, i) => {
-      if (i === index) {
-        count = item.isSelected ? --count : ++count;
-        return {
-          ...item,
-          isSelected: !item.isSelected,
-        };
-      }
-      return item;
-    });
-    setMediaSelectedCount(count);
+    const newMedia = media.map((item, i) => ({
+      ...item,
+      isSelected: i === index ? !item.isSelected : item.isSelected,
+    }));
     setMedia(newMedia);
+    const newSelectedMedia = newMedia.filter((item) => item.isSelected);
+    setSelectedMedia(newSelectedMedia);
 
-    switch (count) {
+    switch (newSelectedMedia.length) {
       case 0:
         setHeaderCheckboxState(checkBoxTypes.EMPTY);
         break;
@@ -55,21 +50,17 @@ const MediaBrowser = ({ mediaPath, data, onGotoSubFolder }) => {
   };
 
   const toggleSelectAllItems = () => {
-    let nextHeaderCheckboxState = checkBoxTypes.CHECKED;
-    let count = media.length;
-    if (mediaSelectedCount === media.length) {
-      nextHeaderCheckboxState = checkBoxTypes.EMPTY;
-      count = 0;
+    let allChecked;
+    if (selectedMedia.length === media.length) {
+      setHeaderCheckboxState(checkBoxTypes.EMPTY);
+      allChecked = false;
+    } else {
+      setHeaderCheckboxState(checkBoxTypes.CHECKED);
+      allChecked = true;
     }
-
-    setMedia(
-      media.map((item) => ({
-        ...item,
-        isSelected: mediaSelectedCount !== media.length,
-      }))
-    );
-    setMediaSelectedCount(count);
-    setHeaderCheckboxState(nextHeaderCheckboxState);
+    const newMedia = media.map((item) => ({ ...item, isSelected: allChecked }));
+    setMedia(newMedia);
+    setSelectedMedia(newMedia.filter((item) => item.isSelected));
   };
 
   const toggleMediaViewType = () =>
@@ -80,6 +71,19 @@ const MediaBrowser = ({ mediaPath, data, onGotoSubFolder }) => {
     );
 
   const toggleUploadModal = () => setShowUploadModal(!showUploadModal);
+
+  const handleShareMultiMedia = useCallback(() => {}, []);
+
+  const handleDeleteMultiMedia = useCallback(() => {}, []);
+
+  const handleDownloadMultiFiles = useCallback(async () => {
+    await downloadMultiFiles(
+      selectedMedia.map((item) => ({
+        url: item.url,
+        name: item.name,
+      }))
+    );
+  }, [selectedMedia]);
 
   const handleGotoSubFolder = useCallback(
     (id) => {
@@ -93,8 +97,13 @@ const MediaBrowser = ({ mediaPath, data, onGotoSubFolder }) => {
 
   return (
     <div className={styles.container}>
-      {mediaSelectedCount ? (
-        <MediaBrowserStatus mediaSelectedCount={mediaSelectedCount} />
+      {selectedMedia.length ? (
+        <MediaBrowserStatus
+          mediaSelectedCount={selectedMedia.length}
+          onShareMedia={handleShareMultiMedia}
+          onDeleteMedia={handleDeleteMultiMedia}
+          onDownloadMultiFiles={handleDownloadMultiFiles}
+        />
       ) : (
         <MediaBrowserHeader
           mediaPath={mediaPath}

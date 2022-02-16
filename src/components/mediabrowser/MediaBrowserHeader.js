@@ -14,10 +14,10 @@ const MediaBrowserHeader = ({
   onGotoSubFolder,
 }) => {
   const renderPath = useCallback(() => {
-    const pathLength = mediaPath.length;
+    const pathLength = mediaPath?.length || 0;
     return (
       <>
-        {mediaPath.map((path, idx) => {
+        {(mediaPath || []).map((path, idx) => {
           if (idx === 0) {
             if (pathLength === 1)
               return (

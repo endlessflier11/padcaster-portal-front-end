@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { get } from 'lodash';
-import MediaTypes from '../../types/MediaTypes';
-import { fetchMediaList, fetchSharedMembers } from '../../utils/apiCalls';
+import MediaTypes from '../types/MediaTypes';
+import { fetchMediaList, fetchSharedMembers } from '../utils/apiCalls';
 
 export function useMediaList(id) {
   const [data, setData] = useState(null);

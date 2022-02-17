@@ -6,6 +6,7 @@ import TextButton from '../common/TextButton';
 
 const MediaBrowserStatus = ({
   mediaSelectedCount,
+  onCancelSelectedMedia,
   onShareMedia,
   onDeleteMedia,
   onDownloadMultiFiles,
@@ -16,7 +17,7 @@ const MediaBrowserStatus = ({
         <small className={styles.selectedCount}>
           {mediaSelectedCount} Selected
         </small>
-        <TextButton buttonText='Cancel' />
+        <TextButton buttonText='Cancel' onAction={onCancelSelectedMedia} />
       </div>
       <div className={styles.rightSideButtons}>
         <TextButton

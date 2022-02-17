@@ -9,7 +9,6 @@ export async function fetchMediaList(id) {
     const results = !id
       ? get(data, 'results', [])
       : get(data, 'children.results', []);
-      console.log('results=', results);
     return results;
   } catch (err) {
     console.error(err);

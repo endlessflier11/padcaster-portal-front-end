@@ -1,4 +1,10 @@
-import React, { useState, useContext, useEffect, useCallback } from 'react';
+import React, {
+  useState,
+  useContext,
+  useEffect,
+  useCallback,
+  useMemo,
+} from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import MediaBrowserHeader from './MediaBrowserHeader';
 import MediaBrowserStatus from './MediaBrowserStatus';
@@ -22,19 +28,17 @@ const MediaBrowser = ({ mediaPath, data, onGotoSubFolder }) => {
   const [headerCheckboxState, setHeaderCheckboxState] = useState();
   const { isMobile } = useContext(DeviceContext);
   const [showUploadModal, setShowUploadModal] = useState(false);
+  const isTreeView = useMemo(() => {
+    return mediaViewType === MyMediaViewTypes.LIST || isMobile;
+  }, [isMobile, mediaViewType]);
 
   useEffect(() => {
     setSelectedMedia([]);
     setHeaderCheckboxState(checkBoxTypes.EMPTY);
   }, [data]);
 
-  const handleMediaItemClick = (index) => () => {
-    const newMedia = media.map((item, i) => ({
-      ...item,
-      isSelected: i === index ? !item.isSelected : item.isSelected,
-    }));
-    setMedia(newMedia);
-    const newSelectedMedia = newMedia.filter((item) => item.isSelected);
+  useEffect(() => {
+    const newSelectedMedia = media.filter((item) => item.isSelected);
     setSelectedMedia(newSelectedMedia);
 
     switch (newSelectedMedia.length) {
@@ -47,43 +51,62 @@ const MediaBrowser = ({ mediaPath, data, onGotoSubFolder }) => {
       default:
         setHeaderCheckboxState(checkBoxTypes.INDETERMINATE);
     }
+  }, [media]);
+
+  const handleMediaItemClick = (index) => () => {
+    const newMedia = media.map((item, i) => ({
+      ...item,
+      isSelected: i === index ? !item.isSelected : item.isSelected,
+    }));
+    setMedia(newMedia);
   };
 
   const toggleSelectAllItems = () => {
-    let allChecked;
-    if (selectedMedia.length === media.length) {
-      setHeaderCheckboxState(checkBoxTypes.EMPTY);
-      allChecked = false;
-    } else {
-      setHeaderCheckboxState(checkBoxTypes.CHECKED);
-      allChecked = true;
-    }
-    const newMedia = media.map((item) => ({ ...item, isSelected: allChecked }));
+    const newMedia = media.map((item) => ({
+      ...item,
+      isSelected: selectedMedia.length !== media.length,
+    }));
     setMedia(newMedia);
-    setSelectedMedia(newMedia.filter((item) => item.isSelected));
   };
 
   const toggleMediaViewType = () =>
     setMediaViewType(
-      mediaViewType === MyMediaViewTypes.LIST
-        ? MyMediaViewTypes.GRID
-        : MyMediaViewTypes.LIST
+      isTreeView ? MyMediaViewTypes.GRID : MyMediaViewTypes.LIST
     );
 
   const toggleUploadModal = () => setShowUploadModal(!showUploadModal);
 
-  const handleShareMultiMedia = useCallback(() => {}, []);
+  const handleCancelSelectedMedia = useCallback(() => {
+    const newMedia = media.map((item, i) => ({
+      ...item,
+      isSelected: false,
+    }));
+    setMedia(newMedia);
+  }, [media, setMedia]);
 
-  const handleDeleteMultiMedia = useCallback(() => {}, []);
+  const handleShareMultiMedia = useCallback(() => {
+    console.log('onshare');
+  }, []);
 
-  const handleDownloadMultiFiles = useCallback(async () => {
-    await downloadMultiFiles(
-      selectedMedia.map((item) => ({
-        url: item.url,
-        name: item.name,
-      }))
-    );
-  }, [selectedMedia]);
+  const handleDeleteMultiMedia = useCallback(() => {
+    console.log('ondelete');
+  }, []);
+
+  const handleDownloadMultiFiles = useCallback(
+    async (id) => {
+      let downloadingFiles = selectedMedia;
+      if (!isTreeView) {
+        downloadingFiles = [media.find((item) => item.id === id)];
+      }
+      await downloadMultiFiles(
+        downloadingFiles.map((item) => ({
+          url: item.url,
+          name: item.name,
+        }))
+      );
+    },
+    [isTreeView, media, selectedMedia]
+  );
 
   const handleGotoSubFolder = useCallback(
     (id) => {
@@ -100,6 +123,7 @@ const MediaBrowser = ({ mediaPath, data, onGotoSubFolder }) => {
       {selectedMedia.length ? (
         <MediaBrowserStatus
           mediaSelectedCount={selectedMedia.length}
+          onCancelSelectedMedia={handleCancelSelectedMedia}
           onShareMedia={handleShareMultiMedia}
           onDeleteMedia={handleDeleteMultiMedia}
           onDownloadMultiFiles={handleDownloadMultiFiles}
@@ -119,7 +143,7 @@ const MediaBrowser = ({ mediaPath, data, onGotoSubFolder }) => {
         </div>
       ) : (
         <>
-          {mediaViewType === MyMediaViewTypes.LIST || isMobile ? (
+          {isTreeView ? (
             <MediaBrowserList
               media={media}
               handleMediaItemClick={handleMediaItemClick}
@@ -131,6 +155,10 @@ const MediaBrowser = ({ mediaPath, data, onGotoSubFolder }) => {
             <MediaBrowserGrid
               media={media}
               onGotoSubFolder={handleGotoSubFolder}
+              onCancelSelectedMedia={handleCancelSelectedMedia}
+              onShareMedia={handleShareMultiMedia}
+              onDeleteMedia={handleDeleteMultiMedia}
+              onDownloadMultiFiles={handleDownloadMultiFiles}
             />
           )}
           {showUploadModal && (

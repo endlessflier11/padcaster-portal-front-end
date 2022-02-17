@@ -4,7 +4,7 @@ import MediaBrowser from '../../components/mediabrowser/MediaBrowser';
 import Wrapper from '../../components/wrapper/Wrapper';
 import { AppContext } from '../../contexts/AppContext';
 import ViewType from '../../types/ViewType';
-import { useMediaList } from '../effects/media';
+import { useMediaList } from '../../effects/media';
 
 export const MediaPage = () => {
   const { setViewType } = useContext(AppContext);

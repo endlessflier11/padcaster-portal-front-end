@@ -16,7 +16,7 @@ import MediaBrowserGrid from './grid/MediaBrowserGrid';
 import { DeviceContext } from '../../contexts/DeviceContext';
 import { SearchContext } from '../../contexts/SearchContext';
 import UploadModal from '../upload/UploadModal';
-import { useFilteredMediaList } from '../../pages/effects/media';
+import { useFilteredMediaList } from '../../effects/media';
 import styles from './MediaBrowser.module.scss';
 import { downloadMultiFiles } from '../../utils/file';
 

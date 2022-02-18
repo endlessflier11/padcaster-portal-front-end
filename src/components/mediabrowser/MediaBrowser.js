@@ -98,7 +98,7 @@ const MediaBrowser = ({ mediaPath, data, onGotoSubFolder }) => {
       if (!isTreeView) {
         downloadingFiles = [media.find((item) => item.id === id)];
       }
-      console.log('111 media=', downloadingFiles);
+
       await downloadMultiFiles(
         downloadingFiles.map((item) => ({
           id: item.id,

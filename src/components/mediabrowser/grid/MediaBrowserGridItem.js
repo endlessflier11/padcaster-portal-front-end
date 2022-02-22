@@ -39,14 +39,11 @@ const MediaBrowserGridItem = ({
       <p className={styles.dateCreated}>
         Created {makeDateString(dateCreated)}
       </p>
-      <p className={styles.size}>
-        {type !== MediaTypes.FOLDER && formatFileSize(size, 2)}
-      </p>
+      <p className={styles.size}>{formatFileSize(size, 2)}</p>
       <p className={styles.sharedWith}>
-        {type !== MediaTypes.FOLDER &&
-          `Shared with: ${
-            sharedWith.length > 1 ? `${sharedWith.length} people` : 'only me'
-          }`}
+        {`Shared with: ${
+          sharedWith.length > 1 ? `${sharedWith.length} people` : 'only me'
+        }`}
       </p>
       <div className={styles.icons}>
         <div className={styles.icon} onClick={() => onDownloadMultiFiles(id)}>

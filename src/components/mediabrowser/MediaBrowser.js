@@ -99,14 +99,7 @@ const MediaBrowser = ({ mediaPath, data, onGotoSubFolder }) => {
         downloadingFiles = [media.find((item) => item.id === id)];
       }
 
-      await downloadMultiFiles(
-        downloadingFiles.map((item) => ({
-          id: item.id,
-          type: item.type,
-          url: item.url,
-          name: item.name,
-        }))
-      );
+      await downloadMultiFiles(downloadingFiles);
     },
     [isTreeView, media, selectedMedia]
   );

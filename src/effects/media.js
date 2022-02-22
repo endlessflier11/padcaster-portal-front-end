@@ -3,6 +3,18 @@ import { get } from 'lodash';
 import MediaTypes from '../types/MediaTypes';
 import { fetchMediaList, fetchSharedMembers } from '../utils/apiCalls';
 
+async function getFolderSize(id) {
+  let totalSize = 0;
+  const allMedia = await fetchMediaList(id);
+  (allMedia || []).forEach(async (media) => {
+    if (media.mime.includes('folder'))
+      totalSize += await getFolderSize(media.id);
+    else totalSize += media?.size || 0;
+  });
+
+  return totalSize;
+}
+
 export function useMediaList(id) {
   const [data, setData] = useState(null);
 
@@ -11,10 +23,24 @@ export function useMediaList(id) {
       try {
         const mediaList = await fetchMediaList(id);
         const mergedMediaList = await Promise.all(
-          mediaList.map(async (media) => ({
-            ...media,
-            sharedWith: await fetchSharedMembers(media.id),
-          }))
+          mediaList.map(async (media) => {
+            let type;
+            if (media.mime.includes('folder')) type = MediaTypes.FOLDER;
+            else if (media?.video) type = MediaTypes.MP4;
+            else type = MediaTypes.JPG;
+
+            let size;
+            if (type === MediaTypes.FOLDER)
+              size = await getFolderSize(media.id);
+            else size = media?.size || 0;
+
+            return {
+              ...media,
+              type,
+              size,
+              sharedWith: await fetchSharedMembers(media.id),
+            };
+          })
         );
         setData(mergedMediaList);
       } catch (err) {
@@ -35,16 +61,11 @@ export function useFilteredMediaList(data, searchQuery) {
 
   useEffect(() => {
     const sortedData = (data || []).map((media) => {
-      let type;
-      if (media.mime.includes('folder')) type = MediaTypes.FOLDER;
-      else if (media?.video) type = MediaTypes.MP4;
-      else type = MediaTypes.JPG;
-
       return {
         id: media.id,
         name: media?.name || 'Unknown Media',
         dateCreated: new Date(media?.created?.on),
-        size: media?.size || 0,
+        size: media.size,
         isSelected: false,
         sharedWith: Object.entries(media?.sharedWith || []).map(
           ([, member]) => ({
@@ -53,7 +74,7 @@ export function useFilteredMediaList(data, searchQuery) {
             email: member?.email,
           })
         ),
-        type,
+        type: media?.type,
         url: media?.url,
         video: media?.video,
         audio: media?.audio,

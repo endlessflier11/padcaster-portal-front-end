@@ -26,6 +26,7 @@
 
 .nameWrapper {
   flex-basis: $MediaBrowserNameWidth;
+  min-width: $MediaBrowserNameWidth;
   display: flex;
   align-items: center;
 }

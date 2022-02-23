@@ -10,13 +10,32 @@ export function formatFileSize(bytes, decimalPoint) {
 }
 
 function delay(milliseconds) {
-  new Promise((resolve) => {
-    setTimeout(resolve, milliseconds);
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(milliseconds);
+    }, milliseconds);
   });
 }
 
+const downloadIFrame = (file) => {
+  window.open(file.url, '_blank' + file.id);
+};
+
+const downloadHref = async (file) => {
+  const a = document.createElement('a');
+  a.id = file.id;
+  a.download = file.name;
+  a.href = file.url;
+  a.style.display = 'none';
+  document.body.append(a);
+  a.click();
+
+  // Chrome requires the timeout
+  await delay(100);
+  a.remove();
+};
+
 async function downloadFile(file) {
-  console.log('file=', file);
   const url = file.url;
   // let url;
   // if (file.id % 2 === 0)
@@ -53,16 +72,15 @@ async function downloadFile(file) {
 }
 
 export async function downloadMultiFiles(allMedia) {
-  try {
-    allMedia.forEach(async (media) => {
-      if (media.type === MediaTypes.FOLDER) {
-        const subMedia = await fetchMediaList(media.id);
-        await downloadMultiFiles(subMedia);
-      } else {
-        await downloadFile(media);
-      }
-    });
-  } catch (err) {
-    console.error(err);
-  }
+  allMedia.forEach(async (media, idx) => {
+    if (media.type === MediaTypes.FOLDER) {
+      const subMedia = await fetchMediaList(media.id);
+      await downloadMultiFiles(subMedia);
+    } else {
+      setTimeout(async function () {
+        if (media.type === MediaTypes.JPG) downloadHref(media);
+        else downloadIFrame(media);
+      }, 2000 * idx);
+    }
+  });
 }

@@ -39,7 +39,9 @@ const MediaBrowserGridItem = ({
       <p className={styles.dateCreated}>
         Created {makeDateString(dateCreated)}
       </p>
-      <p className={styles.size}>{formatFileSize(size, 2)}</p>
+      <p className={styles.size}>
+        {type !== MediaTypes.FOLDER && formatFileSize(size, 2)}
+      </p>
       <p className={styles.sharedWith}>
         {`Shared with: ${
           sharedWith.length > 1 ? `${sharedWith.length} people` : 'only me'

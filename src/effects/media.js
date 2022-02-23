@@ -31,7 +31,8 @@ export function useMediaList(id) {
 
             let size;
             if (type === MediaTypes.FOLDER)
-              size = await getFolderSize(media.id);
+              // size = await getFolderSize(media.id);
+              size = 0;
             else size = media?.size || 0;
 
             return {

@@ -1,12 +1,5 @@
-@import '../../styles/shared.scss';
+@use "../../styles/colors";
 
 .container {
   height: auto;
-}
-
-.iconColor {
-  fill: $colorSecondary;
-  &:hover {
-    fill: $colorPrimary;
-  }
 }

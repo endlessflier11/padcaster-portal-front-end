@@ -18,9 +18,6 @@ const MediaBrowserGridItem = ({
   type,
   url,
   onGotoSubFolder,
-  onShareMedia,
-  onDeleteMedia,
-  onDownloadMultiFiles,
 }) => {
   const [playing, setPlaying] = useState(false);
 
@@ -70,15 +67,13 @@ const MediaBrowserGridItem = ({
         }`}
       </p>
       <div className={styles.icons}>
-        <div className={styles.icon} onClick={() => onDownloadMultiFiles(id)}>
+        <div className={styles.icon}>
           <DownloadIcon />
         </div>
-        <div className={styles.icon} onClick={onShareMedia}>
+        <div className={styles.icon}>
           <ShareIcon />
         </div>
-        <div className={styles.icon} onClick={onDeleteMedia}>
-          <TrashIcon />
-        </div>
+        <TrashIcon />
       </div>
     </div>
   );

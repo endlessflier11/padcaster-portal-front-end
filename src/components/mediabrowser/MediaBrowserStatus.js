@@ -1,48 +1,38 @@
-import styles from './MediaBrowserStatus.module.scss';
+import styles from './MediaBrowserStatus.module.scss'
 import DownloadIcon from '../icons/DownloadIcon';
 import ShareIcon from '../icons/ShareIcon';
 import TrashIcon from '../icons/TrashIcon';
 import TextButton from '../common/TextButton';
 
-const MediaBrowserStatus = ({
-  mediaSelectedCount,
-  onCancelSelectedMedia,
-  onShareMedia,
-  onDeleteMedia,
-  onDownloadMultiFiles,
-}) => {
+const MediaBrowserStatus = ({ mediaSelectedCount }) => {
   return (
     <div className={styles.container}>
       <div className={styles.selectedCountWrapper}>
-        <small className={styles.selectedCount}>
-          {mediaSelectedCount} Selected
-        </small>
-        <TextButton buttonText='Cancel' onAction={onCancelSelectedMedia} />
+        <small className={styles.selectedCount}>{mediaSelectedCount} Selected</small>
+        <TextButton buttonText="Cancel" />
       </div>
       <div className={styles.rightSideButtons}>
-        <TextButton
-          buttonText='Share'
+        <TextButton 
+          buttonText="Share"
           icon={ShareIcon}
-          iconPosition='left'
-          onAction={onShareMedia}
+          iconPosition="left"
         />
-        <TextButton
-          buttonText='Download'
+        <TextButton 
+          buttonText="Download"
           icon={DownloadIcon}
-          iconPosition='left'
+          iconPosition="left"
           topOffset={4}
-          onAction={onDownloadMultiFiles}
         />
-        <TextButton
-          buttonText='Delete'
+        <TextButton 
+          buttonText="Delete"
           icon={TrashIcon}
-          iconPosition='left'
+          iconPosition="left"
           topOffset={2}
-          onAction={onDeleteMedia}
         />
       </div>
     </div>
   );
-};
+}
 
 export default MediaBrowserStatus;
+

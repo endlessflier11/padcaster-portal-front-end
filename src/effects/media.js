@@ -79,6 +79,7 @@ export function useFilteredMediaList(data, searchQuery) {
         video: media?.video,
         audio: media?.audio,
         duration: media?.duration,
+        parent: media?.folder,
       };
     });
 

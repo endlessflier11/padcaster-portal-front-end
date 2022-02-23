@@ -23,6 +23,9 @@
 .icon {
   position: relative;
   top: 2px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .size {

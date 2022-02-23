@@ -15,9 +15,6 @@ const MediaBrowserGridItem = ({
   sharedWith,
   type,
   onGotoSubFolder,
-  onShareMedia,
-  onDeleteMedia,
-  onDownloadMultiFiles,
 }) => {
   const selectThumbnail = () => {
     if (type === MediaTypes.FOLDER) {
@@ -49,15 +46,13 @@ const MediaBrowserGridItem = ({
           }`}
       </p>
       <div className={styles.icons}>
-        <div className={styles.icon} onClick={() => onDownloadMultiFiles(id)}>
+        <div className={styles.icon}>
           <DownloadIcon />
         </div>
-        <div className={styles.icon} onClick={onShareMedia}>
+        <div className={styles.icon}>
           <ShareIcon />
         </div>
-        <div className={styles.icon} onClick={onDeleteMedia}>
-          <TrashIcon />
-        </div>
+        <TrashIcon />
       </div>
     </div>
   );

@@ -2,13 +2,7 @@ import MediaTypes from '../../../types/MediaTypes';
 import styles from './MediaBrowserGrid.module.scss';
 import MediaBrowserGridItem from './MediaBrowserGridItem';
 
-const MediaBrowserGrid = ({
-  media,
-  onGotoSubFolder,
-  onShareMedia,
-  onDeleteMedia,
-  onDownloadMultiFiles,
-}) => {
+const MediaBrowserGrid = ({ media, onGotoSubFolder }) => {
   return (
     <div className={styles.container}>
       {media.map((mediaItem, i) => {
@@ -17,9 +11,6 @@ const MediaBrowserGrid = ({
             key={i}
             {...mediaItem}
             onGotoSubFolder={onGotoSubFolder}
-            onShareMedia={onShareMedia}
-            onDeleteMedia={onDeleteMedia}
-            onDownloadMultiFiles={onDownloadMultiFiles}
           />
         );
       })}

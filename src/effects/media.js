@@ -54,10 +54,6 @@ export function useFilteredMediaList(data, searchQuery) {
           })
         ),
         type,
-        url: media?.url,
-        video: media?.video,
-        audio: media?.audio,
-        duration: media?.duration,
       };
     });
 

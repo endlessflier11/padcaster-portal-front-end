@@ -4,7 +4,7 @@ const UploadIcon = () => {
   return (
     <div className={styles.container}>
       <svg width="12px" height="15px" viewBox="0 0 12 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-          <title>Icon/upload</title>
+          <title>Upload</title>
           <g id="Icon/upload" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round">
               <g id="Button/upload-orange" transform="translate(1.000000, 1.000000)" stroke="#383838" strokeWidth="2">
                   <g id="Icon/upload-white">

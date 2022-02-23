@@ -74,7 +74,7 @@ const MediaBrowserHeader = ({
         </button>
         <div className={styles.pipe}></div>
         <button className={styles.gridOrListIcon} onClick={toggleMediaViewType}>
-          {mediaViewType === MyMediaViewTypes.LIST ? (
+          {mediaViewType !== MyMediaViewTypes.LIST ? (
             <ListIcon />
           ) : (
             <GridIcon />

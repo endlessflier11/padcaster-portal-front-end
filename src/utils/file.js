@@ -1,5 +1,5 @@
 import MediaTypes from '../types/MediaTypes';
-import { fetchMediaList } from './apiCalls';
+import { fetchMediaList } from './media';
 
 export function formatFileSize(bytes, decimalPoint) {
   if (bytes == 0) return '0 Bytes';
@@ -19,24 +19,16 @@ function delay(milliseconds) {
 
 async function downloadFile(file) {
   if (!file.url) return;
+  const a = document.createElement('a');
+  a.id = file.id;
+  a.download = file.name;
+  a.href = file.url;
+  a.style.display = 'none';
+  document.body.append(a);
+  a.click();
 
-  fetch(file.url)
-    .then((response) => response.blob())
-    .then(async (blob) => {
-      const blobURL = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.id = `hidden-downloader-${file.id}`;
-      a.href = blobURL;
-      a.style = 'display: none';
-
-      if (file.name && file.name.length) a.download = file.name;
-      document.body.appendChild(a);
-      a.click();
-
-      await delay(100);
-      a.remove();
-    })
-    .catch(() => console.error('fetch url error'));
+  await delay(100);
+  a.remove();
 }
 
 export async function downloadMultiFiles(allMedia) {

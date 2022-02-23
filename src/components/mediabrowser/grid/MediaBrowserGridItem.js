@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import ReactPlayer from 'react-player';
 import styles from './MediaBrowserGridItem.module.scss';
 import { makeDateString } from '../../../utils/date';
 import BigFolderIcon from '../../icons/BigFolderIcon';
@@ -14,11 +16,14 @@ const MediaBrowserGridItem = ({
   size,
   sharedWith,
   type,
+  url,
   onGotoSubFolder,
   onShareMedia,
   onDeleteMedia,
   onDownloadMultiFiles,
 }) => {
+  const [playing, setPlaying] = useState(false);
+
   const selectThumbnail = () => {
     if (type === MediaTypes.FOLDER) {
       return (
@@ -30,7 +35,26 @@ const MediaBrowserGridItem = ({
         </div>
       );
     }
-    return <div className={styles.thumbnail}>thumbnail goes here</div>;
+
+    if (type === MediaTypes.JPG) {
+      return (
+        <div
+          className={styles.thumbnail}
+          style={{ backgroundImage: `url(${url})` }}
+        />
+      );
+    }
+
+    return (
+      <ReactPlayer
+        className={styles.thumbnail}
+        url={url}
+        playing={playing}
+        controls
+        width='100%'
+        height='100%'
+      />
+    );
   };
 
   return (
@@ -39,9 +63,7 @@ const MediaBrowserGridItem = ({
       <p className={styles.dateCreated}>
         Created {makeDateString(dateCreated)}
       </p>
-      <p className={styles.size}>
-        {type !== MediaTypes.FOLDER && formatFileSize(size, 2)}
-      </p>
+      <p className={styles.size}>{formatFileSize(size, 2)}</p>
       <p className={styles.sharedWith}>
         {`Shared with: ${
           sharedWith.length > 1 ? `${sharedWith.length} people` : 'only me'

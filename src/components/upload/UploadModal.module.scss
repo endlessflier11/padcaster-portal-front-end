@@ -1,4 +1,4 @@
-@import '../../styles/shared.scss';
+@import "../../styles/shared.scss";
 
 .container {
   &Default,
@@ -46,14 +46,4 @@
 .default,
 .close {
   margin-left: 16px;
-}
-
-.containerMinimize {
-  width: 350px;
-  height: auto;
-}
-
-.containerDefault {
-  width: 350px;
-  max-height: 400px;
 }

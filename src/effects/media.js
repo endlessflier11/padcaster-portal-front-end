@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { get } from 'lodash';
 import MediaTypes from '../types/MediaTypes';
-import { fetchMediaList, fetchSharedMembers } from '../utils/apiCalls';
+import { fetchMediaList, fetchSharedMembers } from '../utils/media';
 
 async function getFolderSize(id) {
   let totalSize = 0;
@@ -31,8 +31,7 @@ export function useMediaList(id) {
 
             let size;
             if (type === MediaTypes.FOLDER)
-              // size = await getFolderSize(media.id);
-              size = 0;
+              size = await getFolderSize(media.id);
             else size = media?.size || 0;
 
             return {

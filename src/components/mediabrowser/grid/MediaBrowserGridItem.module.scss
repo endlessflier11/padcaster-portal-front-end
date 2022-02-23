@@ -5,8 +5,11 @@
 }
 
 .thumbnail {
-  // TODO: placeholder color
-  background: cornflowerblue;
+  border-radius: 2px;
+  background-color: $colorGreyLight;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   width: $MediaBrowserGridItemThumbnailWidth;
   height: $MediaBrowserGridItemThumbnailHeight;
 }

@@ -17,42 +17,10 @@ function delay(milliseconds) {
   });
 }
 
-const downloadIFrame = (file) => {
-  window.open(file.url, '_blank' + file.id);
-};
-
-const downloadHref = async (file) => {
-  const a = document.createElement('a');
-  a.id = file.id;
-  a.download = file.name;
-  a.href = file.url;
-  a.style.display = 'none';
-  document.body.append(a);
-  a.click();
-
-  // Chrome requires the timeout
-  await delay(100);
-  a.remove();
-};
-
 async function downloadFile(file) {
-  const url = file.url;
-  // let url;
-  // if (file.id % 2 === 0)
-  //   url =
-  //     'https://static.wixstatic.com/media/51a970_86252556f0614bfea4cbb53c00050f9c~mv2.jpg';
-  // else if (file.id % 2 === 1)
-  //   url =
-  //     'https://static.wixstatic.com/media/51a970_86252556f0614bfea4cbb53c00050f9c~mv2.jpg';
-  const name = file.name;
-  if (!url) return;
+  if (!file.url) return;
 
-  const token = localStorage.getItem('token');
-  fetch(url, {
-    headers: { 'Content-Type': 'image/png', Authorization: `Bearer ${token}` },
-    responseType: 'blob',
-    // mode: 'no-cors',
-  })
+  fetch(file.url)
     .then((response) => response.blob())
     .then(async (blob) => {
       const blobURL = URL.createObjectURL(blob);
@@ -61,7 +29,7 @@ async function downloadFile(file) {
       a.href = blobURL;
       a.style = 'display: none';
 
-      if (name && name.length) a.download = name;
+      if (file.name && file.name.length) a.download = file.name;
       document.body.appendChild(a);
       a.click();
 
@@ -77,10 +45,7 @@ export async function downloadMultiFiles(allMedia) {
       const subMedia = await fetchMediaList(media.id);
       await downloadMultiFiles(subMedia);
     } else {
-      setTimeout(async function () {
-        if (media.type === MediaTypes.JPG) downloadHref(media);
-        else downloadIFrame(media);
-      }, 2000 * idx);
+      await downloadFile(media);
     }
   });
 }

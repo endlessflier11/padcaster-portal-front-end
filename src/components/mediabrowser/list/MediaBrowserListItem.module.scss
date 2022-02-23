@@ -26,12 +26,20 @@
 
 .nameWrapper {
   flex-basis: $MediaBrowserNameWidth;
+  min-width: $MediaBrowserNameWidth;
   display: flex;
   align-items: center;
 }
 
 .name {
   margin-left: 8px;
+  max-width: 140px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  @include medium {
+    max-width: calc(100% - 70px);
+  }
 }
 
 .folderName {

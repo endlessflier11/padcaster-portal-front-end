@@ -20,6 +20,11 @@
   font-weight: bold;
   color: $colorSecondary;
   line-height: 11pt;
+  @include small {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .userType {

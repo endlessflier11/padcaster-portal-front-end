@@ -65,12 +65,8 @@ const MediaBrowserListItem = ({
         </p>
       </label>
       <p className={styles.dateCreated}>{makeDateString(dateCreated)}</p>
-      <p className={styles.size}>
-        {type !== MediaTypes.FOLDER && formatFileSize(size, 2)}
-      </p>
-      <p className={styles.sharedWith}>
-        {type !== MediaTypes.FOLDER && formatSharedWith(sharedWith)}
-      </p>
+      <p className={styles.size}>{formatFileSize(size, 2)}</p>
+      <p className={styles.sharedWith}>{formatSharedWith(sharedWith)}</p>
       <Tooltip
         content={
           <>

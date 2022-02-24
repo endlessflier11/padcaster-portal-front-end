@@ -8,6 +8,8 @@ import DownloadIcon from '../../icons/DownloadIcon';
 import ShareIcon from '../../icons/ShareIcon';
 import TrashIcon from '../../icons/TrashIcon';
 import { formatFileSize } from '../../../utils/file';
+import PlayIcon from '../../icons/PlayIcon';
+import PauseIcon from '../../icons/PauseIcon';
 
 const MediaBrowserGridItem = ({
   id,
@@ -23,6 +25,10 @@ const MediaBrowserGridItem = ({
   onDownloadMultiFiles,
 }) => {
   const [playing, setPlaying] = useState(false);
+
+  const handlePlayPause = () => {
+    setPlaying((prev) => !prev);
+  };
 
   const selectThumbnail = () => {
     if (type === MediaTypes.FOLDER) {
@@ -46,14 +52,21 @@ const MediaBrowserGridItem = ({
     }
 
     return (
-      <ReactPlayer
-        className={styles.thumbnail}
-        url={url}
-        playing={playing}
-        controls
-        width='100%'
-        height='100%'
-      />
+      <div className={styles.videoContainer}>
+        <div className={styles.backdrop}>
+          <div className={styles.playButton} onClick={handlePlayPause}>
+            {playing ? <PauseIcon /> : <PlayIcon />}
+          </div>
+        </div>
+        <ReactPlayer
+          className={styles.player}
+          url={url}
+          playing={playing}
+          controls={false}
+          width='100%'
+          height='100%'
+        />
+      </div>
     );
   };
 

@@ -53,16 +53,18 @@ const MediaBrowserGridItem = ({
 
     return (
       <div className={styles.videoContainer}>
-        <div className={styles.backdrop}>
-          <div className={styles.playButton} onClick={handlePlayPause}>
-            {playing ? <PauseIcon /> : <PlayIcon />}
+        {!playing && (
+          <div className={styles.backdrop}>
+            <div className={styles.playButton} onClick={handlePlayPause}>
+              <PlayIcon />
+            </div>
           </div>
-        </div>
+        )}
         <ReactPlayer
           className={styles.player}
           url={url}
           playing={playing}
-          controls={false}
+          controls={playing}
           width='100%'
           height='100%'
         />

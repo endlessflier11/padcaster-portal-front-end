@@ -37,7 +37,9 @@ export async function downloadMultiFiles(allMedia) {
       const subMedia = await fetchMediaList(media.id);
       await downloadMultiFiles(subMedia);
     } else {
-      await downloadFile(media);
+      setTimeout(async function () {
+        await downloadFile(media);
+      }, 2000 * idx);
     }
   });
 }
